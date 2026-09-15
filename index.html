@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Forma de Pagamento</title>
+</head>
+<body>
+    <h1>Escolha a forma de pagamento</h1>
+
+    <p>1 - Dinheiro/PIX: 10% de desconto</p>
+    <p>2 - Débito: 5% de desconto</p>
+    <p>3 - Crédito: sem desconto</p>
+
+    <button onclick="calcularPagamento()">Calcular pagamento</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        function calcularPagamento() {
+            let entrada = prompt("Digite o valor total da compra:");
+
+            if (entrada === null || entrada.trim() === "") {
+                document.getElementById("resultado").textContent =
+                    "Informe o valor da compra.";
+                return;
+            }
+
+            let valor = Number(entrada.replace(",", "."));
+
+            if (!Number.isFinite(valor) || valor <= 0) {
+                document.getElementById("resultado").textContent =
+                    "Valor inválido! Digite um número maior que zero.";
+                return;
+            }
+
+            let opcao = prompt(
+                "Escolha a forma de pagamento:\n" +
+                "1 - Dinheiro/PIX: 10% de desconto\n" +
+                "2 - Débito: 5% de desconto\n" +
+                "3 - Crédito: sem desconto"
+            );
+
+            let valorFinal;
+
+            switch (opcao) {
+                case "1":
+                    valorFinal = valor - (valor * 0.10);
+                    break;
+
+                case "2":
+                    valorFinal = valor - (valor * 0.05);
+                    break;
+
+                case "3":
+                    valorFinal = valor;
+                    break;
+
+                default:
+                    document.getElementById("resultado").textContent =
+                        "Opção inválida! Digite um número de 1 a 3.";
+                    return;
+            }
+
+            document.getElementById("resultado").textContent =
+                "Valor final a pagar: R$ " +
+                valorFinal.toFixed(2).replace(".", ",");
+        }
+    </script>
+</body>
+</html>
